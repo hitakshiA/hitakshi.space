@@ -30,35 +30,28 @@ export function citySvg(key, { mobile = false } = {}) {
 
   // Light is soft where cities meet: a lit city eases off near a shared edge and
   // spills into its neighbour, fading out over a quarter of the neighbour's width.
-  // With every city open (the wash), each light runs edge to edge and neighbours
-  // blend half and half at the seam, so the three read as one long sunrise.
   const gradient = (k) => `<linearGradient id="${id}-g-${k}" x1="0" y1="${TOP}" x2="0" y2="${G}" gradientUnits="userSpaceOnUse">` +
     LIGHT[k].map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('') + `</linearGradient>`;
   const fade = (fid, stops) => `<linearGradient id="${fid}-f" x1="${vx}" y1="0" x2="${vx + vw}" y2="0" gradientUnits="userSpaceOnUse">` +
     stops.map(([o, a]) => `<stop offset="${o}" stop-color="#fff" stop-opacity="${a}"/>`).join('') + `</linearGradient>` +
     `<mask id="${fid}" maskUnits="userSpaceOnUse" x="${vx - 1}" y="${TOP}" width="${vw + 2}" height="${H}">` +
     `<rect x="${vx - 1}" y="${TOP}" width="${vw + 2}" height="${H}" fill="url(#${fid}-f)"/></mask>`;
-  const light = (cls, k, mask) => `<rect class="${cls}" x="0" y="${TOP}" width="${W}" height="${H}" fill="url(#${id}-g-${k})"${mask ? ` mask="url(#${mask})"` : ''}/>`;
+  const light = (cls, k, mask) => `<rect class="${cls}" x="0" y="${TOP}" width="${W}" height="${H}" fill="url(#${id}-g-${k})" mask="url(#${mask})"/>`;
 
   const defs = [
     gradient(key), ...[left, right].filter(Boolean).map(gradient),
     fade(`${id}-own`, [[0, left ? EDGE : 1], [0.12, 1], [0.88, 1], [1, right ? EDGE : 1]]),
     left ? fade(`${id}-sl`, [[0, EDGE], [0.1, 0.22], [0.26, 0]]) : '',
     right ? fade(`${id}-sr`, [[0.74, 0], [0.9, 0.22], [1, EDGE]]) : '',
-    left ? fade(`${id}-wl`, [[0, 0.5], [0.2, 0.3], [0.45, 0]]) : '',
-    right ? fade(`${id}-wr`, [[0.55, 0], [0.8, 0.3], [1, 0.5]]) : '',
   ];
   const body = layers.map((layer, n) => {
     const pid = `${id}-${n}`;
     defs.push(`<path id="${pid}" d="${layer.d}"/><clipPath id="${pid}-c"><use href="#${pid}"/></clipPath>`);
     const between = n === 0;
     const depth = between ? 3 : layers.length - 1 - n; // 0 = front, 3 = the low city between landmarks
-    const lit = between ? '' : `<g clip-path="url(#${pid}-c)">${light('lit own', key, `${id}-own`)}` +
+    const lit = between ? '' : `<g clip-path="url(#${pid}-c)">${light('lit', key, `${id}-own`)}` +
       (left ? light('lit spill sl', left, `${id}-sl`) : '') +
-      (right ? light('lit spill sr', right, `${id}-sr`) : '') +
-      light('lit wash', key) +
-      (left ? light('lit wash wl', left, `${id}-wl`) : '') +
-      (right ? light('lit wash wr', right, `${id}-wr`) : '') + `</g>`;
+      (right ? light('lit spill sr', right, `${id}-sr`) : '') + `</g>`;
     return `<g class="layer${between ? ' between' : ''}" data-depth="${depth}">` +
       `<use href="#${pid}" class="ol"/><use href="#${pid}" class="cv"/>${lit}` +
       (layer.l ? `<path class="dt" d="${layer.l}"/>` : '') + `</g>`;
