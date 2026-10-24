@@ -1,0 +1,19 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800" }]
+    },
+    {
+      "source": "/Hitakshi_Arora_Resume.pdf",
+      "headers": [
+        { "key": "Content-Disposition", "value": "inline; filename=\"Hitakshi_Arora_Resume.pdf\"" },
+        { "key": "Cache-Control", "value": "public, max-age=300, must-revalidate" }
+      ]
+    }
+  ]
+}

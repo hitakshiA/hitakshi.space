@@ -1,0 +1,20 @@
+# Only the site itself is tracked; everything else here stays local.
+/*
+!/.gitignore
+!/README.md
+!/package.json
+!/vercel.json
+!/site.json
+!/src/
+!/public/
+
+src/*
+!src/build.mjs
+!src/client.js
+!src/content.mjs
+!src/peeks.json
+!src/render.mjs
+!src/skyline.mjs
+!src/styles.css
+
+.DS_Store

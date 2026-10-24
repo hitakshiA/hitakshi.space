@@ -1,0 +1,10 @@
+{
+  "name": "hitakshi-space",
+  "private": true,
+  "scripts": {
+    "build": "node src/build.mjs"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
