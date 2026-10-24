@@ -22,7 +22,7 @@ export const CITIES = [
       {
         logo: 'prodigal', org: 'Prodigal', yc: 'S18', role: 'Agent Engineer.', when: 'Jun–Dec 2026',
         points: [
-          'Built and shipped three production voice agents for US financial&#8209;services clients, including debt&nbsp;collection.',
+          'Built and shipped production voice agents for US financial&#8209;services clients, including debt&nbsp;collection.',
           'Turned customer requirements into agent workflows and connected them to client&nbsp;CRMs.',
           'Tuned flows, prompts and context against real call&nbsp;data.',
         ],
