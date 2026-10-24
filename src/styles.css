@@ -44,6 +44,25 @@ h1 .ch{display:inline-block}
 .tile:hover svg,.tile:focus-visible svg{transform:scale(1.06)}
 .tile:active{transform:translateY(-1px) scale(.96);transition-duration:var(--t-press)}
 
+/* the way in to all three: three city lights, overlapping like the cities do */
+.more{margin-top:clamp(2rem,5.5vh,3.5rem);animation:up 700ms var(--ease-expo) 560ms both}
+.xp{all:unset;box-sizing:border-box;position:relative;isolation:isolate;display:inline-flex;align-items:center;gap:.65em;padding:.5em 1.15em .56em .95em;border-radius:999px;cursor:pointer;-webkit-tap-highlight-color:transparent;
+  font:italic 400 clamp(1.25rem,1rem + .7vw,1.625rem)/1.1 var(--font-display);letter-spacing:-.01em;color:var(--ink);background:var(--surface);
+  transition:transform var(--t-ui) var(--ease-out)}
+.xp::before{content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;opacity:0;background:linear-gradient(100deg,#F7BCCA,#F9C9A4 36%,#CCC6F0 64%,#CDE7A6);transition:opacity var(--t-ui) ease}
+.xp:hover,.xp:focus-visible{transform:translateY(-2px)}
+.xp:hover::before,.xp:focus-visible::before{opacity:1}
+.xp:active{transform:scale(.97);transition-duration:var(--t-press)}
+.xp:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.dots{display:inline-flex;isolation:isolate}
+.dots i{width:.5em;height:.5em;border-radius:50%;mix-blend-mode:multiply;transition:margin var(--t-ui) var(--ease-out)}
+.dots i+i{margin-left:-.16em}
+.dots i:nth-child(1){background:#EF8FA7}
+.dots i:nth-child(2){background:#F59F66}
+.dots i:nth-child(3){background:#93C76B}
+.xp:hover .dots i+i,.xp:focus-visible .dots i+i{margin-left:.12em}
+html:not(.js) .more{display:none}
+
 /* the skyline */
 .cities{--ps:2rem;--code-gap:clamp(.875rem,2.2vh,1.5rem);position:relative;z-index:2;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));padding-bottom:env(safe-area-inset-bottom)}
 .city{position:relative}
@@ -66,10 +85,13 @@ h1 .ch{display:inline-block}
 .lit{transform:translateY(172px);transition:transform var(--t-light) var(--ease-expo)}
 .layer[data-depth="1"] .lit{opacity:.72}
 .layer[data-depth="2"] .lit{opacity:.5}
-.city.on .lit:not(.spill),.city.from-l .spill.sl,.city.from-r .spill.sr{transform:none}
+.layer[data-depth="1"]{--dd:90ms}
+.layer[data-depth="2"]{--dd:180ms}
+.city.on .lit.own,.city.from-l .spill.sl,.city.from-r .spill.sr{transform:none}
+.city.on .lit{transition-delay:var(--dd,0ms)}
 .city.from-l .spill.sl,.city.from-r .spill.sr{transition-delay:120ms}
-.city.on .layer[data-depth="1"] .lit{transition-delay:90ms}
-.city.on .layer[data-depth="2"] .lit{transition-delay:180ms}
+/* all three open: the light sweeps west to east and neighbours blend at every seam */
+.stage.all .wash{transform:none;transition-delay:calc(var(--c) * 220ms + var(--dd,0ms))}
 
 /* sunrise behind the chosen city */
 .glow{position:absolute;z-index:-1;left:50%;bottom:0;width:170%;height:min(78vh,46rem);transform:translateX(-50%) scale(.92);transform-origin:50% 100%;opacity:0;pointer-events:none;
@@ -78,6 +100,7 @@ h1 .ch{display:inline-block}
 [data-city="delhi"] .glow{background:radial-gradient(50% 62% at 50% 100%,rgb(245 150 165/.42) 0%,rgb(250 196 170/.30) 28%,rgb(246 186 214/.16) 52%,rgb(246 186 214/0) 76%)}
 [data-city="mumbai"] .glow{background:radial-gradient(50% 62% at 50% 100%,rgb(249 140 72/.46) 0%,rgb(250 178 128/.30) 24%,rgb(150 170 246/.26) 50%,rgb(150 170 246/0) 76%)}
 [data-city="bangalore"] .glow{background:radial-gradient(50% 62% at 50% 100%,rgb(176 222 112/.44) 0%,rgb(214 236 150/.30) 26%,rgb(150 206 170/.18) 52%,rgb(150 206 170/0) 76%)}
+.stage.all .glow{opacity:.78}
 @keyframes breathe{to{transform:translateX(-50%) scale(1.045)}}
 
 /* logos peeking out from behind each city: the hint that it opens */
@@ -105,6 +128,9 @@ h1 .ch{display:inline-block}
 /* open: the city's story in plain type, the name steps back */
 .intro,.art{transition:filter 520ms var(--ease-out),opacity 520ms var(--ease-out)}
 .stage.focus .intro{filter:blur(9px);opacity:.28;pointer-events:none}
+.stage.focus:not(.all) .xp{pointer-events:auto}
+.more{transition:opacity 420ms var(--ease-out)}
+.stage.all .more{opacity:0}
 .stage.focus .code{opacity:0;filter:blur(6px);transform:translateY(-6px)}
 .stage.focus .join{opacity:0;filter:blur(4px)}
 .panel{position:absolute;z-index:4;bottom:100%;min-height:var(--panel-h,0px);width:min(30rem,calc(100vw - 2 * var(--margin)));padding-bottom:clamp(.75rem,2vh,1.5rem);
@@ -133,6 +159,17 @@ h3 span{color:var(--muted)}
 .when{color:var(--muted);font-variant-numeric:tabular-nums;padding-top:.2rem;white-space:nowrap}
 .yc{display:inline-flex;align-items:center;gap:.3rem;margin-left:.35rem;vertical-align:-.1em;font-size:var(--step-small);font-weight:400;color:var(--muted)}
 .yc img{width:.9rem;height:.9rem;border-radius:2px}
+
+/* all three open: each panel over its own city, dates above names, a timeline read left to right */
+.stage.all .city{position:relative}
+.stage.all [data-city] .panel{left:clamp(1rem,2.2vw,2rem);right:clamp(1rem,2.2vw,2rem);width:auto;translate:none;bottom:calc(100% + var(--lift,0px))}
+.stage.all h3{font-size:clamp(1.5rem,1rem + 1vw,2.125rem)}
+.stage.all .ledger>li{grid-template-columns:var(--ps) minmax(0,1fr);grid-template-rows:auto auto;row-gap:.1rem}
+.stage.all .ledger>li>.mark{grid-row:1/3}
+.stage.all .when{grid-column:2;grid-row:1;position:static;padding:0;font-size:var(--step-small);letter-spacing:.02em}
+.stage.all .what{grid-column:2;grid-row:2}
+.stage.all .org{padding-right:0}
+.stage.all{min-height:max(100svh,36rem,var(--need,0px))}
 
 /* entrance: content is there on the first frame, it only settles */
 @keyframes rise{from{opacity:0;transform:translateY(.35em)}}
@@ -166,6 +203,17 @@ html:not(.js) .stage:has(.city:hover) .code{opacity:0}
   .scape-svg.is-m{display:block;aspect-ratio:204/160}
 }
 
+/* under 900px, all three stack above the skyline, Delhi on top */
+@media (max-width:899px){
+  .stage.all .intro{opacity:0}
+  .stage.all .city{position:static}
+  .stage.all [data-city] .panel{left:50%;right:auto;translate:-50% 0;width:min(32rem,calc(100vw - 2 * var(--margin)))}
+  .stage.all [data-city="delhi"] .panel{padding-top:1.5rem}
+  .stage.all [data-city]:not([data-city="delhi"]) .panel{padding-top:1.75rem}
+  .stage.all [data-city]:not([data-city="bangalore"]) .panel{padding-bottom:0}
+  .stage.all h3{font-size:1.5rem;margin-bottom:.75rem}
+}
+
 /* phones */
 @media (max-width:719px){
   h1{font-size:clamp(2.5rem,11.5vw,3.25rem)}
@@ -181,6 +229,7 @@ html:not(.js) .stage:has(.city:hover) .code{opacity:0}
   .org{font-size:1.0625rem;padding-right:6.75rem}
   .role,.when{font-size:.9375rem}
   .when{position:absolute;top:0;right:0}
+  .stage.all [data-city] .panel{left:var(--margin);right:var(--margin);translate:none;width:auto}
 }
 @media (max-width:719px) and (max-height:700px){
   h1{font-size:2.5rem}

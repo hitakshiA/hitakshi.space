@@ -97,7 +97,7 @@ const html = `<!doctype html>
 <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&family=Source+Serif+4:opsz,wght@8..60,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;1,8..60,400&display=swap">
 <script>document.documentElement.classList.add('js')</script>
 <style>${css.trim()}</style>
 </head>
@@ -108,6 +108,9 @@ const html = `<!doctype html>
     <ul class="links" aria-label="Elsewhere">${LINKS.map(([key, label], i) => `
       <li style="--i:${i}"><a class="tile" href="${site.links[key]}" ${external} aria-label="${label}">${ICONS[key]}</a></li>`).join('')}
     </ul>
+    <div class="more">
+      <button class="xp" type="button" aria-expanded="false" aria-controls="${CITIES.map((c) => `p-${c.key}`).join(' ')}"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>Experience</button>
+    </div>
   </header>
   <section class="cities" aria-labelledby="cities-h">
     <h2 id="cities-h" class="sr">Where I have worked, by city</h2>${CITIES.map(city).join('')}
