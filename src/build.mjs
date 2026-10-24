@@ -65,7 +65,7 @@ const city = (c, i) => `
       </button>
     </div>`;
 
-const url = site.url.replace(/\/$/, '');
+const url = (process.env.SITE_URL || site.url).replace(/\/$/, ''); // SITE_URL: build for another address
 const xHandle = '@' + new URL(site.links.x).pathname.split('/').filter(Boolean)[0];
 
 const html = `<!doctype html>

@@ -330,10 +330,10 @@ export const CITIES = {
       ['qutub', 30, 1.2, 0], ['qutubScreen', 60, 1, 0, { hw: 20 }],
       ['humayun', 124, 1, 0], ['wall', 171, 1, 0, { hw: 5, h: 10 }],
       ['indiaGate', 240, 1, 1],
-      ['lotus', 354, 1, 0], ['wall', 402, 1, 0, { hw: 6, h: 10 }],
-      ['redFort', 442, 1, 1],
+      ['lotus', 350, 1, 0],
+      ['redFort', 428, 1, 1],                 // bastions end at 467, clear of the city edge
     ]),
-    clear: [[222, 258], [432, 452]],
+    clear: [[222, 258], [418, 438]],
     clearM: [[230, 262]],
     mobile: compose([
       ['qutub', 156, 0.95, 0], ['wall', 176, 0.86, 0, { hw: 14, h: 12 }],
