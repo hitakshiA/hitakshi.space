@@ -360,7 +360,7 @@ export const CITIES = {
   },
   bangalore: {
     layers: compose([
-      ['palace', 60, 1.1, 0],
+      ['palace', 58, 1.05, 0],                // clear of the Vidhana Soudha wing, so outlines never double
       ['wall', 122, 1, 0, { hw: 10, h: 10 }],
       ['vidhana', 222, 1, 1, { wing: 92 }],
       ['wall', 326, 1, 0, { hw: 12, h: 10 }],
@@ -368,7 +368,7 @@ export const CITIES = {
       ['ubCrown', 404, 1, 0], ['ubPoint', 442, 1, 1],
       ['wall', 470, 1, 0, { hw: 16, h: 10 }],
     ]),
-    clear: [[52, 68]],
+    clear: [[50, 66]],
     clearM: [],
     mobile: compose([
       ['palace', 167, 0.5, 0],
