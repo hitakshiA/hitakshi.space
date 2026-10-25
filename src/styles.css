@@ -62,16 +62,15 @@ h1 .ch{display:inline-block}
 .layer:not([data-depth="0"]) .dt{opacity:.26}
 .layer.between .ol{stroke:color-mix(in oklch,var(--ink) 30%,var(--bg))}
 
-/* the light: rises into the chosen city and spills, fading, into its neighbours */
-.lit{transform:translateY(172px);transition:transform var(--t-light) var(--ease-expo)}
+/* the light: a dome that swells up from the chosen city and spills, fading, into its neighbours */
 .layer[data-depth="1"] .lit{opacity:.72}
 .layer[data-depth="2"] .lit{opacity:.5}
 .layer[data-depth="3"] .lit{opacity:.4}
-.city.on .lit:not(.spill),.city.from-l .spill-l,.city.from-r .spill-r{transform:none}
-.city.from-l .spill-l,.city.from-r .spill-r{transition-delay:120ms}
-.city.on .layer[data-depth="1"] .lit{transition-delay:90ms}
-.city.on .layer[data-depth="2"] .lit{transition-delay:180ms}
-.city.on .layer[data-depth="3"] .lit{transition-delay:260ms}
+.dome{transform-box:fill-box;transform-origin:50% 50%;transform:scale(0);transition:transform var(--t-light) cubic-bezier(.4,.3,.2,1)}
+.city.on .dome-own,.city.from-l .dome-l,.city.from-r .dome-r{transform:none}
+.city:is(.on,.from-l,.from-r) .dome[data-depth="1"]{transition-delay:90ms}
+.city:is(.on,.from-l,.from-r) .dome[data-depth="2"]{transition-delay:180ms}
+.city:is(.on,.from-l,.from-r) .dome[data-depth="3"]{transition-delay:260ms}
 
 /* sunrise behind the chosen city */
 .glow{position:absolute;z-index:-1;left:50%;bottom:0;width:170%;height:min(78vh,46rem);transform:translateX(-50%) scale(.92);transform-origin:50% 100%;opacity:0;pointer-events:none;

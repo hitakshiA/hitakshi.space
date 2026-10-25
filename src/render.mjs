@@ -36,9 +36,22 @@ export function citySvg(key, { mobile = false } = {}) {
     stops.map(([o, a]) => `<stop offset="${o}" stop-color="#fff" stop-opacity="${a}"/>`).join('') + `</linearGradient>` +
     `<mask id="${fid}" maskUnits="userSpaceOnUse" x="${vx - 1}" y="${TOP}" width="${vw + 2}" height="${H}">` +
     `<rect x="${vx - 1}" y="${TOP}" width="${vw + 2}" height="${H}" fill="url(#${fid}-f)"/></mask>`;
-  const light = (cls, k, mask) => `<rect class="${cls}" x="0" y="${TOP}" width="${W}" height="${H}" fill="url(#${id}-g-${k})" mask="url(#${mask})"/>`;
+  // The light swells up as a soft-edged dome from the bottom centre of the lit city. A neighbour's
+  // spill uses the same dome, centred on the lit city, so one curve carries across the join.
+  // Each depth gets its own dome so the back layers can follow a beat behind.
+  const rx = vw * 1.3, ry = H * 1.7, mid = vx + vw / 2;
+  const domes = new Map();
+  const dome = (from, cx, depth) => {
+    const did = `${id}-dome-${from}${depth}`;
+    if (!domes.has(did)) domes.set(did, `<mask id="${did}" maskUnits="userSpaceOnUse" x="0" y="${TOP}" width="${W}" height="${H}">` +
+      `<rect class="dome dome-${from}" data-depth="${depth}" x="${cx - rx}" y="${G - ry}" width="${2 * rx}" height="${2 * ry}" fill="url(#${id}-dg)"/></mask>`);
+    return did;
+  };
+  const light = (k, fadeId, from, cx, depth) => `<g mask="url(#${fadeId})"><rect class="lit" x="0" y="${TOP}" width="${W}" height="${H}" ` +
+    `fill="url(#${id}-g-${k})" mask="url(#${dome(from, cx, depth)})"/></g>`;
 
   const defs = [
+    `<radialGradient id="${id}-dg"><stop offset="0.7" stop-color="#fff"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></radialGradient>`,
     gradient(key), ...[left, right].filter(Boolean).map(gradient),
     fade(`${id}-own`, [[0, left ? EDGE : 1], [0.12, 1], [0.88, 1], [1, right ? EDGE : 1]]),
     left ? fade(`${id}-sl`, [[0, EDGE], [0.16, 0.3], [0.45, 0]]) : '',
@@ -49,14 +62,15 @@ export function citySvg(key, { mobile = false } = {}) {
     defs.push(`<path id="${pid}" d="${layer.d}"/><clipPath id="${pid}-c"><use href="#${pid}"/></clipPath>`);
     const between = n === 0;
     const depth = between ? 3 : layers.length - 1 - n; // 0 = front, 3 = the low city between landmarks
-    const lit = `<g clip-path="url(#${pid}-c)">${light('lit', key, `${id}-own`)}` +
-      (left ? light('lit spill spill-l', left, `${id}-sl`) : '') +
-      (right ? light('lit spill spill-r', right, `${id}-sr`) : '') + `</g>`;
+    const lit = `<g clip-path="url(#${pid}-c)">${light(key, `${id}-own`, 'own', mid, depth)}` +
+      (left ? light(left, `${id}-sl`, 'l', mid - vw, depth) : '') +
+      (right ? light(right, `${id}-sr`, 'r', mid + vw, depth) : '') + `</g>`;
     return `<g class="layer${between ? ' between' : ''}" data-depth="${depth}">` +
       `<use href="#${pid}" class="ol"/><use href="#${pid}" class="cv"/>${lit}` +
       (layer.l ? `<path class="dt" d="${layer.l}"/>` : '') + `</g>`;
   });
   body.push(`<path class="gl" d="M-40 ${G}H${W + 40}"/>`);
+  defs.push(...domes.values());
 
   const viewBox = (mobile ? MOBILE_VIEW : DESKTOP_VIEW).join(' ');
   return `<svg class="scape-svg ${mobile ? 'is-m' : 'is-d'}" viewBox="${viewBox}" preserveAspectRatio="xMidYMax meet" aria-hidden="true" focusable="false">` +
