@@ -1,11 +1,12 @@
 // What shows up when a city opens. Logos live in public/assets/logos/<key>.<ext>.
-// `bleed` logos fill their tile edge to edge; the rest sit on a white tile.
+// `shape` (round, square or wide) sizes each logo so they all look the same size;
+// square ones get rounded corners.
 export const LOGOS = {
-  srm: { file: 'srm.png' },
-  nic: { file: 'nic.svg' },
-  prodigal: { file: 'prodigal.svg' },
-  hackerrank: { file: 'hackerrank.png', bleed: true },
-  yc: { file: 'yc.svg', bleed: true },
+  srm: { file: 'srm.png', shape: 'round' },
+  nic: { file: 'nic.svg', shape: 'wide' },
+  prodigal: { file: 'prodigal.svg', shape: 'round' },
+  hackerrank: { file: 'hackerrank.png', shape: 'square' },
+  yc: { file: 'yc.svg', shape: 'square' },
 };
 
 export const CITIES = [

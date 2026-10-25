@@ -27,7 +27,7 @@ const letters = (text) =>
   [...text].map((ch, i) => (ch === ' ' ? ' ' : `<span class="ch" style="--i:${i}">${ch}</span>`)).join('');
 
 const mark = (key, attrs = '') =>
-  `<span class="mark${LOGOS[key].bleed ? ' bleed' : ''}"${attrs}><img src="${logoSrc(key)}" alt="" width="28" height="28" decoding="async"></span>`;
+  `<span class="mark ${LOGOS[key].shape}"${attrs}><img src="${logoSrc(key)}" alt="" width="28" height="28" decoding="async"></span>`;
 
 const yc = (batch) =>
   `<span class="yc"><img src="${logoSrc('yc')}" alt="Y Combinator" width="14" height="14" decoding="async" data-fly="yc"><span>${batch}</span></span>`;

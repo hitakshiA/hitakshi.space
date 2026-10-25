@@ -91,7 +91,7 @@ h1 .ch{display:inline-block}
 .bob{display:block;width:100%;height:100%;
   transform:translate(calc((var(--bob) - .5) * var(--wx) * 8% * var(--amp)),calc((var(--bob) - .5) * var(--wy) * 8% * var(--amp))) rotate(calc((var(--r) + (var(--bob) - .5) * 6deg) * var(--amp)));
   animation:bob var(--t) ease-in-out var(--d) infinite alternate}
-.peek .mark{width:100%;height:100%;border-radius:28%}
+.peek .mark{width:100%;height:100%}
 @keyframes peekin{from{translate:calc(var(--wx) * -40%) calc(var(--wy) * -40%);opacity:0}}
 @keyframes bob{from{--bob:0}to{--bob:1}}
 
@@ -119,10 +119,10 @@ h3 span{color:var(--muted)}
 .ledger{list-style:none;margin:0;padding:0;display:grid;gap:clamp(.875rem,1.8vh,1.125rem)}
 .ledger>li{display:grid;grid-template-columns:2rem minmax(0,1fr) auto;column-gap:.875rem;align-items:start;opacity:0;transform:translateY(10px)}
 .city.open .ledger>li{opacity:1;transform:none;transition:opacity 460ms var(--ease-out),transform 680ms var(--ease-expo);transition-delay:calc(180ms + var(--i) * 80ms)}
-.mark{display:grid;place-items:center;width:var(--ps);height:var(--ps);border-radius:calc(var(--ps) * .28);background:#fff;overflow:hidden;border:1px solid rgb(36 38 44/.1)}
-.mark img{width:72%;height:72%;object-fit:contain}
-.mark.bleed{background:none;border:0}
-.mark.bleed img{width:100%;height:100%}
+.mark{display:grid;place-items:center;width:var(--ps);height:var(--ps)}
+.mark img{display:block;width:100%;height:100%;object-fit:contain}
+.mark.square img{width:88%;height:88%;border-radius:22%}
+.mark.wide img{height:auto}
 .away{opacity:0}
 .what{display:grid;gap:.15rem}
 .org{font-weight:500;font-size:var(--step-lead);line-height:1.3;text-wrap:balance}
@@ -132,7 +132,7 @@ h3 span{color:var(--muted)}
 .points li::before{content:"";position:absolute;left:.1rem;top:.62em;width:.3125rem;height:.3125rem;border-radius:50%;background:var(--faint)}
 .when{color:var(--muted);font-variant-numeric:tabular-nums;padding-top:.2rem;white-space:nowrap}
 .yc{display:inline-flex;align-items:center;gap:.3rem;margin-left:.35rem;vertical-align:-.1em;font-size:var(--step-small);font-weight:400;color:var(--muted)}
-.yc img{width:.9rem;height:.9rem;border-radius:2px}
+.yc img{width:.9rem;height:.9rem;border-radius:22%}
 
 /* entrance: content is there on the first frame, it only settles */
 @keyframes rise{from{opacity:0;transform:translateY(.35em)}}

@@ -25,9 +25,12 @@
     x: 0, y: 0, s: 1, up: false, landed: false, raf: 0,
   })));
   const put = (f) => { f.fly.style.transform = `translate(${f.x}px,${f.y}px) scale(${f.s})`; };
+  // A panel logo lines up box to box; the inline YC image lines up with the peek's image.
   const toTarget = (f) => {
     const home = f.peek.getBoundingClientRect(), t = f.target.getBoundingClientRect();
-    return { x: t.left - home.left, y: t.top - home.top, s: t.width / home.width };
+    if (f.target.tagName !== 'IMG') return { x: t.left - home.left, y: t.top - home.top, s: t.width / home.width };
+    const img = f.peek.querySelector('img'), s = t.width / img.offsetWidth;
+    return { x: t.left - home.left - img.offsetLeft * s, y: t.top - home.top - img.offsetTop * s, s };
   };
   const launch = (f, up) => {
     if (f.up === up) return;
