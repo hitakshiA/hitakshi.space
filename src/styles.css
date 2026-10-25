@@ -66,10 +66,12 @@ h1 .ch{display:inline-block}
 .lit{transform:translateY(172px);transition:transform var(--t-light) var(--ease-expo)}
 .layer[data-depth="1"] .lit{opacity:.72}
 .layer[data-depth="2"] .lit{opacity:.5}
+.layer[data-depth="3"] .lit{opacity:.4}
 .city.on .lit:not(.spill),.city.from-l .spill.sl,.city.from-r .spill.sr{transform:none}
 .city.from-l .spill.sl,.city.from-r .spill.sr{transition-delay:120ms}
 .city.on .layer[data-depth="1"] .lit{transition-delay:90ms}
 .city.on .layer[data-depth="2"] .lit{transition-delay:180ms}
+.city.on .layer[data-depth="3"] .lit{transition-delay:260ms}
 
 /* sunrise behind the chosen city */
 .glow{position:absolute;z-index:-1;left:50%;bottom:0;width:170%;height:min(78vh,46rem);transform:translateX(-50%) scale(.92);transform-origin:50% 100%;opacity:0;pointer-events:none;

@@ -49,7 +49,7 @@ export function citySvg(key, { mobile = false } = {}) {
     defs.push(`<path id="${pid}" d="${layer.d}"/><clipPath id="${pid}-c"><use href="#${pid}"/></clipPath>`);
     const between = n === 0;
     const depth = between ? 3 : layers.length - 1 - n; // 0 = front, 3 = the low city between landmarks
-    const lit = between ? '' : `<g clip-path="url(#${pid}-c)">${light('lit', key, `${id}-own`)}` +
+    const lit = `<g clip-path="url(#${pid}-c)">${light('lit', key, `${id}-own`)}` +
       (left ? light('lit spill sl', left, `${id}-sl`) : '') +
       (right ? light('lit spill sr', right, `${id}-sr`) : '') + `</g>`;
     return `<g class="layer${between ? ' between' : ''}" data-depth="${depth}">` +
