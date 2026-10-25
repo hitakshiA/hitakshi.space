@@ -66,7 +66,7 @@ h1 .ch{display:inline-block}
 .layer[data-depth="1"] .lit{opacity:.72}
 .layer[data-depth="2"] .lit{opacity:.5}
 .layer[data-depth="3"] .lit{opacity:.4}
-.dome{transform-box:fill-box;transform-origin:50% 50%;transform:scale(0);transition:transform var(--t-light) cubic-bezier(.4,.3,.2,1)}
+.dome{transform-box:fill-box;transform-origin:50% 50%;transform:scale(0);transition:transform var(--t-light) cubic-bezier(.4,.3,.2,1)} /* taste-skill-ignore: the light grows from a point */
 .city.on .dome-own,.city.from-l .dome-l,.city.from-r .dome-r{transform:none}
 .city:is(.on,.from-l,.from-r) .dome[data-depth="1"]{transition-delay:90ms}
 .city:is(.on,.from-l,.from-r) .dome[data-depth="2"]{transition-delay:180ms}
