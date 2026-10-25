@@ -67,8 +67,8 @@ h1 .ch{display:inline-block}
 .layer[data-depth="1"] .lit{opacity:.72}
 .layer[data-depth="2"] .lit{opacity:.5}
 .layer[data-depth="3"] .lit{opacity:.4}
-.city.on .lit:not(.spill),.city.from-l .spill.sl,.city.from-r .spill.sr{transform:none}
-.city.from-l .spill.sl,.city.from-r .spill.sr{transition-delay:120ms}
+.city.on .lit:not(.spill),.city.from-l .spill-l,.city.from-r .spill-r{transform:none}
+.city.from-l .spill-l,.city.from-r .spill-r{transition-delay:120ms}
 .city.on .layer[data-depth="1"] .lit{transition-delay:90ms}
 .city.on .layer[data-depth="2"] .lit{transition-delay:180ms}
 .city.on .layer[data-depth="3"] .lit{transition-delay:260ms}

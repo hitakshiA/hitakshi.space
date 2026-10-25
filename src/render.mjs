@@ -29,7 +29,7 @@ export function citySvg(key, { mobile = false } = {}) {
   const layers = [between, ...(mobile ? city.mobile : city.layers)];
 
   // Light is soft where cities meet: a lit city eases off near a shared edge and
-  // spills into its neighbour, fading out over a quarter of the neighbour's width.
+  // spills into its neighbour, fading out over nearly half of the neighbour's width.
   const gradient = (k) => `<linearGradient id="${id}-g-${k}" x1="0" y1="${TOP}" x2="0" y2="${G}" gradientUnits="userSpaceOnUse">` +
     LIGHT[k].map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('') + `</linearGradient>`;
   const fade = (fid, stops) => `<linearGradient id="${fid}-f" x1="${vx}" y1="0" x2="${vx + vw}" y2="0" gradientUnits="userSpaceOnUse">` +
@@ -41,8 +41,8 @@ export function citySvg(key, { mobile = false } = {}) {
   const defs = [
     gradient(key), ...[left, right].filter(Boolean).map(gradient),
     fade(`${id}-own`, [[0, left ? EDGE : 1], [0.12, 1], [0.88, 1], [1, right ? EDGE : 1]]),
-    left ? fade(`${id}-sl`, [[0, EDGE], [0.1, 0.22], [0.26, 0]]) : '',
-    right ? fade(`${id}-sr`, [[0.74, 0], [0.9, 0.22], [1, EDGE]]) : '',
+    left ? fade(`${id}-sl`, [[0, EDGE], [0.16, 0.3], [0.45, 0]]) : '',
+    right ? fade(`${id}-sr`, [[0.55, 0], [0.84, 0.3], [1, EDGE]]) : '',
   ];
   const body = layers.map((layer, n) => {
     const pid = `${id}-${n}`;
@@ -50,8 +50,8 @@ export function citySvg(key, { mobile = false } = {}) {
     const between = n === 0;
     const depth = between ? 3 : layers.length - 1 - n; // 0 = front, 3 = the low city between landmarks
     const lit = `<g clip-path="url(#${pid}-c)">${light('lit', key, `${id}-own`)}` +
-      (left ? light('lit spill sl', left, `${id}-sl`) : '') +
-      (right ? light('lit spill sr', right, `${id}-sr`) : '') + `</g>`;
+      (left ? light('lit spill spill-l', left, `${id}-sl`) : '') +
+      (right ? light('lit spill spill-r', right, `${id}-sr`) : '') + `</g>`;
     return `<g class="layer${between ? ' between' : ''}" data-depth="${depth}">` +
       `<use href="#${pid}" class="ol"/><use href="#${pid}" class="cv"/>${lit}` +
       (layer.l ? `<path class="dt" d="${layer.l}"/>` : '') + `</g>`;
