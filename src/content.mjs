@@ -21,7 +21,7 @@ export const CITIES = [
     key: 'mumbai', code: 'BOM', title: 'Mumbai', sub: 'now',
     rows: [
       {
-        logo: 'prodigal', org: 'Prodigal', yc: 'S18', role: 'Agent Engineer.', when: 'Jun–Dec 2026',
+        logo: 'prodigal', org: 'Prodigal', yc: 'S18', role: 'Agent Engineer Intern.', when: 'Jun–Dec 2026',
         points: [
           'Built and shipped production voice agents for US financial&#8209;services clients, including debt&nbsp;collection.',
           'Turned customer requirements into agent workflows and connected them to client&nbsp;CRMs.',

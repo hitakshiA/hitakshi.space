@@ -87,6 +87,7 @@ h1 .ch{display:inline-block}
 .peek{position:absolute;left:var(--x);top:var(--y);width:7.5%;aspect-ratio:1;transform:translate(-50%,-50%);pointer-events:auto;cursor:pointer;
   --amp:1;transition:--amp 420ms var(--ease-out);animation:peekin 900ms var(--ease-expo) both;animation-delay:calc(1100ms + var(--c) * 420ms + var(--n) * 160ms)}
 .peek.flying{--amp:0;pointer-events:none}
+.peek.front{z-index:6}
 .fly{display:block;width:100%;height:100%;transform-origin:0 0}
 .bob{display:block;width:100%;height:100%;
   transform:translate(calc((var(--bob) - .5) * var(--wx) * 8% * var(--amp)),calc((var(--bob) - .5) * var(--wy) * 8% * var(--amp))) rotate(calc((var(--r) + (var(--bob) - .5) * 6deg) * var(--amp)));

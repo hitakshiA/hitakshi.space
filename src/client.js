@@ -51,6 +51,8 @@
       f.y = from.y + (to.y - from.y) * ey;
       f.s = from.s + (to.s - from.s) * ey;
       put(f);
+      // Above the panel text once clear of the roofs; back behind them for the last of the sink.
+      f.peek.classList.toggle('front', (up ? ey : 1 - ey) > 0.3);
       if (p < 1) { f.raf = requestAnimationFrame(step); return; }
       if (up) { f.landed = true; f.target.classList.remove('away'); f.fly.style.opacity = '0'; }
       else { f.peek.classList.remove('flying'); f.fly.style.transform = ''; }
