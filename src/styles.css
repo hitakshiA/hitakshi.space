@@ -109,7 +109,7 @@ h1 .ch{display:inline-block}
 .stage.focus .intro{filter:blur(9px);opacity:.28;pointer-events:none}
 .stage.focus .code{opacity:0;filter:blur(6px);transform:translateY(-6px)}
 .stage.focus .join{opacity:0;filter:blur(4px)}
-.panel{position:absolute;z-index:4;bottom:100%;min-height:var(--panel-h,0px);width:min(30rem,calc(100vw - 2 * var(--margin)));padding-bottom:clamp(.75rem,2vh,1.5rem);
+.panel{position:absolute;z-index:4;bottom:100%;width:min(30rem,calc(100vw - 2 * var(--margin)));padding-bottom:clamp(.75rem,2vh,1.5rem);
   opacity:0;visibility:hidden;transform:translateY(10px);pointer-events:none;
   transition:opacity 200ms var(--ease-exit),transform 200ms var(--ease-exit),visibility 0s linear 200ms}
 [data-city="delhi"] .panel{left:var(--margin)}

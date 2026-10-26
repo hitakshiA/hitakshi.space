@@ -6,15 +6,6 @@
   const panels = cities.map((c) => c.querySelector('.panel'));
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Every panel takes the height of the tallest, so their tops line up.
-  const level = () => {
-    row.style.setProperty('--panel-h', '0px');
-    row.style.setProperty('--panel-h', Math.max(...panels.map((p) => p.offsetHeight)) + 'px');
-  };
-  level();
-  addEventListener('resize', level);
-  document.fonts?.ready.then(level);
-
   // The peeking logos fly up into their place in the panel, and back down behind the city.
   const easeOut = (t) => 1 - (1 - t) ** 3;
   const easeInOut = (t) => (t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2);
