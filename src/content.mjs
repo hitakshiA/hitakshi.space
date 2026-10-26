@@ -14,7 +14,14 @@ export const CITIES = [
     key: 'delhi', code: 'DEL', title: 'Delhi',
     rows: [
       { logo: 'srm', org: 'SRM Institute of Science and Technology', role: 'B.Tech CSE (Data Science).', when: '2023–2027' },
-      { logo: 'nic', org: 'National Informatics Centre', role: 'Data Engineering Intern. Pipelines moving 4&nbsp;TB a&nbsp;day.', when: 'Jun–Aug 2025' },
+      {
+        logo: 'nic', org: 'National Informatics Centre', role: 'Data Engineering Intern.', when: 'Jun–Aug 2025',
+        points: [
+          'Built pipelines moving 4&nbsp;TB of government data a day with NiFi, Spark, Hudi and&nbsp;Hadoop.',
+          'Cut downtime by 35% with monitoring and automated error&nbsp;recovery.',
+          'Sped up ETL by 45% by tracing bottlenecks and refactoring legacy&nbsp;scripts.',
+        ],
+      },
     ],
   },
   {
