@@ -36,7 +36,7 @@ export const CITIES = [
       {
         logo: 'hackerrank', org: 'HackerRank', yc: 'S11', role: 'SDE Intern, upcoming in&nbsp;2027.', when: 'Jan 2027',
         points: [
-          'Top 20 worldwide in HackerRank Orchestrate, four&nbsp;times.',
+          'Top 20 worldwide in HackerRank Orchestrate, five times, against 100k+ devs&nbsp;worldwide.',
           'Cleared a rigorous national-level intern intake over four&nbsp;rounds.',
         ],
       },
