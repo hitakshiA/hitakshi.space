@@ -137,6 +137,7 @@ h3 span{color:var(--muted)}
 .yc img{width:.9rem;height:.9rem;border-radius:22%}
 .org .veil{display:inline-block;filter:blur(6px);user-select:none}
 .mark.veil img{filter:blur(5px)}
+.points.veil{filter:blur(5px);user-select:none}
 .soon{display:inline-block;margin-left:.5rem;padding:.15rem .55rem;border-radius:999px;background:var(--surface);font-size:var(--step-small);font-weight:400;color:var(--muted);vertical-align:.1em;white-space:nowrap}
 
 /* entrance: content is there on the first frame, it only settles */

@@ -1,6 +1,6 @@
 // What shows up when a city opens. Logos live in public/assets/logos/<key>.<ext>.
 // `shape` (round, square or wide) sizes each logo so they all look the same size;
-// square ones get rounded corners. A row with `soon: true` shows its logo and name
+// square ones get rounded corners. A row with `soon: true` shows its logo, name and points
 // blurred, with a "Coming soon" label.
 export const LOGOS = {
   srm: { file: 'srm.png', shape: 'round' },

@@ -35,7 +35,7 @@ const mark = (key, attrs = '') =>
 const yc = (batch) =>
   `<span class="yc"><img src="${logoSrc('yc')}" alt="Y Combinator" width="14" height="14" decoding="async" data-fly="yc">${batch ? `<span>${batch}</span>` : ''}</span>`;
 
-// A `soon` row hides its name (and YC batch, which would give it away) behind a blur.
+// A `soon` row hides its name, YC batch and points behind a blur.
 const org = (r) => r.soon
   ? `<span class="veil" aria-hidden="true">${r.org}</span>${r.yc ? ' ' + yc() : ''}<span class="soon">Coming soon</span>`
   : `${r.org}${r.yc ? ' ' + yc(r.yc) : ''}`;
@@ -45,7 +45,7 @@ const row = (r, i) => `
           <li style="--i:${i}">
             ${mark(r.logo, ` data-fly="${r.logo}"`)}
             <span class="what"><span class="org">${org(r)}</span><span class="role">${r.role}</span>${
-              r.points ? `<ul class="points">${r.points.map((p) => `<li>${p}</li>`).join('')}</ul>` : ''}</span>
+              r.points ? `<ul class="points${r.soon ? ' veil' : ''}"${r.soon ? ' aria-hidden="true"' : ''}>${r.points.map((p) => `<li>${p}</li>`).join('')}</ul>` : ''}</span>
             <span class="when">${r.when}</span>
           </li>`;
 
