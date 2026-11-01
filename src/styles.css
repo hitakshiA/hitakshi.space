@@ -135,6 +135,9 @@ h3 span{color:var(--muted)}
 .when{color:var(--muted);font-variant-numeric:tabular-nums;padding-top:.2rem;white-space:nowrap}
 .yc{display:inline-flex;align-items:center;gap:.3rem;margin-left:.35rem;vertical-align:-.1em;font-size:var(--step-small);font-weight:400;color:var(--muted)}
 .yc img{width:.9rem;height:.9rem;border-radius:22%}
+.org .veil{display:inline-block;filter:blur(6px);user-select:none}
+.mark.veil img{filter:blur(5px)}
+.soon{display:inline-block;margin-left:.5rem;padding:.15rem .55rem;border-radius:999px;background:var(--surface);font-size:var(--step-small);font-weight:400;color:var(--muted);vertical-align:.1em;white-space:nowrap}
 
 /* entrance: content is there on the first frame, it only settles */
 @keyframes rise{from{opacity:0;transform:translateY(.35em)}}

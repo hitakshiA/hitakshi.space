@@ -1,6 +1,7 @@
 // What shows up when a city opens. Logos live in public/assets/logos/<key>.<ext>.
 // `shape` (round, square or wide) sizes each logo so they all look the same size;
-// square ones get rounded corners.
+// square ones get rounded corners. A row with `soon: true` shows its logo and name
+// blurred, with a "Coming soon" label.
 export const LOGOS = {
   srm: { file: 'srm.png', shape: 'round' },
   nic: { file: 'nic.svg', shape: 'wide' },
@@ -41,7 +42,7 @@ export const CITIES = [
     key: 'bangalore', code: 'BLR', title: 'Bangalore', sub: 'next',
     rows: [
       {
-        logo: 'hackerrank', org: 'HackerRank', yc: 'S11', role: 'SDE Intern, upcoming in&nbsp;2027.', when: 'Jan 2027',
+        logo: 'hackerrank', org: 'HackerRank', yc: 'S11', soon: true, role: 'SDE Intern, upcoming in&nbsp;2027.', when: 'Jan 2027',
         points: [
           'Top 20 worldwide in HackerRank Orchestrate, five times, against 100k+ devs&nbsp;worldwide.',
           'Cleared a rigorous national-level intern intake over four&nbsp;rounds.',

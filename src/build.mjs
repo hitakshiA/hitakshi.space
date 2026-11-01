@@ -26,16 +26,25 @@ const LINKS = [['linkedin', 'LinkedIn'], ['github', 'GitHub'], ['resume', 'Résu
 const letters = (text) =>
   [...text].map((ch, i) => (ch === ' ' ? ' ' : `<span class="ch" style="--i:${i}">${ch}</span>`)).join('');
 
+// Logos of rows marked `soon`, shown blurred wherever they appear.
+const SOON = new Set(CITIES.flatMap((c) => c.rows.filter((r) => r.soon).map((r) => r.logo)));
+
 const mark = (key, attrs = '') =>
-  `<span class="mark ${LOGOS[key].shape}"${attrs}><img src="${logoSrc(key)}" alt="" width="28" height="28" decoding="async"></span>`;
+  `<span class="mark ${LOGOS[key].shape}${SOON.has(key) ? ' veil' : ''}"${attrs}><img src="${logoSrc(key)}" alt="" width="28" height="28" decoding="async"></span>`;
 
 const yc = (batch) =>
-  `<span class="yc"><img src="${logoSrc('yc')}" alt="Y Combinator" width="14" height="14" decoding="async" data-fly="yc"><span>${batch}</span></span>`;
+  `<span class="yc"><img src="${logoSrc('yc')}" alt="Y Combinator" width="14" height="14" decoding="async" data-fly="yc">${batch ? `<span>${batch}</span>` : ''}</span>`;
+
+// A `soon` row hides its name (and YC batch, which would give it away) behind a blur.
+const org = (r) => r.soon
+  ? `<span class="veil" aria-hidden="true">${r.org}</span>${r.yc ? ' ' + yc() : ''}<span class="soon">Coming soon</span>`
+  : `${r.org}${r.yc ? ' ' + yc(r.yc) : ''}`;
+const orgName = (r) => (r.soon ? 'Coming soon' : r.org);
 
 const row = (r, i) => `
           <li style="--i:${i}">
             ${mark(r.logo, ` data-fly="${r.logo}"`)}
-            <span class="what"><span class="org">${r.org}${r.yc ? ' ' + yc(r.yc) : ''}</span><span class="role">${r.role}</span>${
+            <span class="what"><span class="org">${org(r)}</span><span class="role">${r.role}</span>${
               r.points ? `<ul class="points">${r.points.map((p) => `<li>${p}</li>`).join('')}</ul>` : ''}</span>
             <span class="when">${r.when}</span>
           </li>`;
@@ -61,7 +70,7 @@ const city = (c, i) => `
       <button class="scape" type="button" aria-expanded="false" aria-controls="p-${c.key}">
         <span class="code" aria-hidden="true">${c.code}</span>${peeks(c, i)}
         <span class="art">${citySvg(c.key)}${citySvg(c.key, { mobile: true })}</span>
-        <span class="sr">${c.title}: ${c.rows.map((r) => r.org).join(', ')}</span>
+        <span class="sr">${c.title}: ${c.rows.map(orgName).join(', ')}</span>
       </button>
     </div>`;
 
